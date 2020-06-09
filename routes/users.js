@@ -2,6 +2,7 @@ const {Router} = require('express');
 const User = require('../models/Users');
 const router = Router();
 
+
 router.get('/', async (req, res) => {
   const user = await User.find({});
   res.render('index', {
@@ -55,11 +56,8 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/delete', async (req, res) => {
-  const checkedUser = await User.findById(req.body.id);
-
-  
-  console.log(checkedUser);
-  await checkedUser.remove();
+  const usersDelete = req.body.id;
+  await User.findById(usersDelete).deleteMany();
   res.redirect('/users');
 })
 

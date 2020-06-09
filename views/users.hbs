@@ -1,11 +1,15 @@
+
 <h2>Users</h2>
 
-<button class="btn btn-small">Block</button>
-<button class="btn btn-small">Unblock</button>
 
-<form action="/delete" method="POST">
-  <button type="submit" class="btn btn-small">Delete</button>
-  {{!-- <input type="hidden" name="id" value="5edfc6db1ed1251a9fef08a3"> --}}
+
+<form method="POST" class="form">
+  {{!-- <button type="submit" class="btn btn-small">Delete</button>
+  <button type="submit" class="btn btn-small">Block</button>
+  <button type="submit" class="btn btn-small">Unblock</button> --}}
+   <button type="submit" class="btn btn-small" onclick="submitForm('/DELETE')">Delete</button>
+  <button type="submit" class="btn btn-small" onclick="submitForm('/BLOCK')">Block</button>
+  <button type="submit" class="btn btn-small" onclick="submitForm('/UNBLOCK')">Unblock</button>
 
 {{#if user.length}}
 <table class="striped centered">
