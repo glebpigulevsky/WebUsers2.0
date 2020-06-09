@@ -3,6 +3,7 @@ const User = require('../models/Users');
 const router = Router();
 
 
+
 router.get('/', async (req, res) => {
   const user = await User.find({});
   res.render('index', {
