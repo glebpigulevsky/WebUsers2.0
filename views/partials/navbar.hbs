@@ -1,0 +1,26 @@
+<nav class="blue darken-4">
+    <div class="nav-wrapper">
+      <div class="container">
+        <div class="col s12 m6 l3">
+          <a href="/" class="brand-logo">WebUsers</a>
+        </div>
+        <div class="col s12 m6 l3">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {{#if isRegister }}
+          {{#if isAuth}}
+            <li><a href="/">Logout</a></li>
+            {{else}}
+            <li><a href="/">Main</a></li>
+          {{/if}}
+        
+        {{else}}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        {{/if}}
+      </ul>
+        </div>
+      </div>
+      
+      
+    </div>
+  </nav>

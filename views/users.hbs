@@ -1,0 +1,36 @@
+<h2>Users</h2>
+
+<button class="btn btn-small">Block</button>
+<button class="btn btn-small">Unblock</button>
+
+<form action="/delete" method="POST">
+  <button type="submit" class="btn btn-small">Delete</button>
+  {{!-- <input type="hidden" name="id" value="5edfc6db1ed1251a9fef08a3"> --}}
+
+{{#if user.length}}
+<table class="striped centered">
+  {{#each user}}
+    <tr>
+      <td><label>
+        <input type="checkbox" value="{{_id}}" name="id"/>
+        <span></span>
+      </label>
+        {{!-- <label>
+        <input type="hidden" value="{{_id}}" name="id" />
+        <span></span>
+      </label> --}}
+      </td>
+      <td>{{this._id}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.dateRegistration}}</td>
+      <td>{{this.lastLogin}}</td>
+      <td></td>
+    </tr>
+  {{/each}}
+</table>
+  
+</form>
+{{else}}
+<p>No users!</p>
+{{/if}}

@@ -1,0 +1,28 @@
+{
+  "name": "webuser",
+  "version": "1.0.0",
+  "description": "itransition task",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "js"
+  ],
+  "author": "CasperCarver <pigulevsky.gleb@ya.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mongoose": "^5.9.18"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.6",
+    "nodemon": "^2.0.4"
+  }
+}
