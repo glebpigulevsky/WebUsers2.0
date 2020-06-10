@@ -18,6 +18,10 @@ const schema = new Schema({
     type:Date,
     default: Date.now,
   },
+  blocked: {
+    type: Boolean,
+    default: false,
+  }
   
 },
 {

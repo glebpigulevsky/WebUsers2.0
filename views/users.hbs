@@ -2,27 +2,47 @@
 <h2>Users</h2>
 
 
-
 <form method="POST" class="form">
-  {{!-- <button type="submit" class="btn btn-small">Delete</button>
-  <button type="submit" class="btn btn-small">Block</button>
-  <button type="submit" class="btn btn-small">Unblock</button> --}}
    <button type="submit" class="btn btn-small" onclick="submitForm('/DELETE')">Delete</button>
-  <button type="submit" class="btn btn-small" onclick="submitForm('/BLOCK')">Block</button>
-  <button type="submit" class="btn btn-small" onclick="submitForm('/UNBLOCK')">Unblock</button>
-
+  
+  <button type="submit" class="btn btn-small" onclick="submitForm('/BLOCK')"><img src="userLock.png" alt="lock user"></button>
+  <button type="submit" class="btn btn-small" onclick="submitForm('/UNBLOCK')"><img src="userUnlock.png" alt="unlock user"></button>
+<input type="hidden" name="actLogin" value="{{user_id}}" name="id">
 {{#if user.length}}
 <table class="striped centered">
-  {{#each user}}
+  <thead>
     <tr>
+    <th><label>
+        <input type="checkbox" value="{{_id}}" name="id" id="multCheckbox" onclick="multSelect()"/>
+        <span></span>
+      </label></th>
+    <th>
+      id
+    </th>
+    <th>
+      name
+    </th>
+    <th>
+      email
+    </th>
+    <th>
+      date of registration
+    </th>
+    <th>
+      last login
+    </th>
+  </tr>
+  </thead>
+  
+  {{#each user}}
+    <tr {{#if blocked}}
+    class="red blocked"
+      {{/if}}
+    >
       <td><label>
-        <input type="checkbox" value="{{_id}}" name="id"/>
+        <input type="checkbox" value="{{_id}}" name="id" class="userCheckbox"/>
         <span></span>
       </label>
-        {{!-- <label>
-        <input type="hidden" value="{{_id}}" name="id" />
-        <span></span>
-      </label> --}}
       </td>
       <td>{{this._id}}</td>
       <td>{{this.name}}</td>
