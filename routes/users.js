@@ -12,7 +12,9 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/register', (req, res) => {
+  const exist = req.query.exist;
   res.render('register', {
+    exist,
     title: 'Register',
     isRegister: true
   });
@@ -42,6 +44,10 @@ router.get('/users', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
+  User.findOne({ email: req.body.email}, async function( error, user) {
+  if (user){
+    res.redirect('/register?exist=true');
+    } else{
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -49,7 +55,10 @@ router.post('/register', async (req, res) => {
   })
   await user.save();
   res.redirect('/');
+}
+  })
 })
+
 
 router.post('/login', (req, res) => {
   const password = req.body.loginPassword;
@@ -163,6 +172,4 @@ function getTime(date){
 }
 
 module.exports = router;
-
-
 

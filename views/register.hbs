@@ -1,6 +1,8 @@
 <form action="/register" method="POST">
   <h3>Register</h3>
-
+  {{#if exist}}
+    <p style="color: red;">user with this e-mail already exist</p>
+  {{/if}}
   <div class="input-field">
     <input type="text" name="name" id="">
     <label>Name</label>
