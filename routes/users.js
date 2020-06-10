@@ -33,8 +33,8 @@ router.get('/login', (req, res) => {
 
 router.get('/users', async (req, res) => {
   const user = await User.find({});
-  const user_id = req.query.user_id;
-  res.render('users', {
+  const user_id = await req.query.user_id;
+  await res.render('users', {
     user_id,
     user,
     title: 'Users list',
