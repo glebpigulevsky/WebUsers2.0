@@ -106,7 +106,7 @@ router.post('/block', async (req, res) => {
   let activeLogin = req.body.actLogin;
   let usersBlock = req.body.id;
   if (usersBlock == undefined){
-    res.redirect('/users');
+    res.redirect('/users?user_id=' + activeLogin);
   } else {
     if (usersBlock.length == 24) {
       const userToBLock = await User.findById(usersBlock);
@@ -115,7 +115,7 @@ router.post('/block', async (req, res) => {
       if (usersBlock == activeLogin) {
         res.redirect('/');
       } else {
-        res.redirect('/users');
+        res.redirect('/users?user_id=' + activeLogin);
       }
     } else {
       if (usersBlock[0] == ''){
@@ -130,22 +130,23 @@ router.post('/block', async (req, res) => {
       if (usersBlock.includes(activeLogin)) {
         res.redirect('/');
       } else {
-        res.redirect('/users');
+        res.redirect('/users?user_id=' + activeLogin);
       }
     }
   }
 })
 
 router.post('/unblock', async (req, res) => {
+  let activeLogin = req.body.actLogin;
   let usersBlock = req.body.id;
   if (usersBlock == undefined){
-    res.redirect('/users');
+    res.redirect('/users?user_id=' + activeLogin);
   } else {
     if (usersBlock.length == 24){
       const userToBLock = await User.findById(usersBlock);
       userToBLock.blocked = false;
       await userToBLock.save();
-      res.redirect('/users');
+      res.redirect('/users?user_id=' + activeLogin);
     }
     if (usersBlock[0] == ''){
       usersBlock = usersBlock.slice(1);
@@ -155,7 +156,7 @@ router.post('/unblock', async (req, res) => {
       userToBLock.blocked = false;
       await userToBLock.save();
     }
-    res.redirect('/users');
+    res.redirect('/users?user_id=' + activeLogin);
   }
 })
 
