@@ -1,7 +1,8 @@
 const {Router} = require('express');
 const User = require('../models/Users');
 const router = Router();
-
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 
 router.get('/', async (req, res) => {
@@ -53,35 +54,67 @@ router.post('/register', async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   })
-  await user.save();
-  res.redirect('/');
+  console.log(user);
+  //Hash Password
+  
+   await bcrypt.genSalt(10, async (err, salt) => {
+    
+    await bcrypt.hash(user.password, salt, async (err, hash) => {
+      if(err) throw err;
+      
+      user.password = await hash;
+      user.save()
+
+      .then(user => {
+        res.redirect('/login');
+      })
+      .catch( err => console.log(err));
+    })
+  })
+  
+    
+
+  
+  
+  
 }
   })
 })
 
 
-router.post('/login', (req, res) => {
-  const password = req.body.loginPassword;
-  User.findOne({
-      $and: [
-        { email: req.body.loginEmail },
-        { password: password },
-      ]
-    }, function( error, user) {
-    if (user){
-      if(user.blocked) {
-        res.redirect('/login?blocked=true');
-      } else{
-         let date = new Date();
-         let lastLogin = getTime(date);
-        user.lastLogin = lastLogin;
-        user.save();
-        res.redirect('/users?user_id=' + user.id);
-      }
-    } else if( user === null){
-      res.redirect('/login?incorrect=true');
-    } 
-  })
+// router.post('/login', (req, res) => {
+//   const password = req.body.loginPassword;
+//   User.findOne({
+//       $and: [
+//         { email: req.body.loginEmail },
+//         { password: password },
+//       ]
+//     }, function( error, user) {
+//     if (user){
+//       if(user.blocked) {
+//         res.redirect('/login?blocked=true');
+//       } else{
+//          let date = new Date();
+//          let lastLogin = getTime(date);
+//         user.lastLogin = lastLogin;
+//         user.save();
+//         res.redirect('/users?user_id=' + user.id);
+//       }
+//     } else if( user === null){
+//       res.redirect('/login?incorrect=true');
+//     } 
+//   })
+// });
+
+router.post('/login', async (req, res, next) => {
+  const user = await User.find({});
+  //const actUser = user.findOne({email: req.body.email });
+  console.log(user);
+  passport.authenticate('local', {
+    successRedirect: '/users?user_id=' + user[0].id,
+    failureRedirect: '/login?',
+    failureFlash: false
+  })(req, res, next);
 });
 
 router.post('/delete', async (req, res) => {
